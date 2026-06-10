@@ -63,7 +63,7 @@ const LoginPage = () => {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full text-white"
                   {...register("email", {
                     required: "Email is required",
                   })}
@@ -85,7 +85,7 @@ const LoginPage = () => {
                 <input
                   type={isShowPassword ? "text" : "password"}
                   placeholder="Enter your password"
-                  className="input input-bordered w-full "
+                  className="input input-bordered w-full text-white"
                   {...register("password", {
                     required: "Password is required",
                   })}

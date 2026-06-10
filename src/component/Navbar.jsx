@@ -1,13 +1,17 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Navbar({ user }) {
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { data: session, isPending } = authClient.useSession();
+  const user = session?.user;
+  const handleLogout = async () => await authClient.signOut();
 
   return (
     <header className="bg-white shadow-md border-b sticky top-0 z-50">
@@ -94,7 +98,10 @@ export default function Navbar({ user }) {
                       Dashboard
                     </Link>
 
-                    <button className="w-full text-left px-4 py-3 text-red-500 hover:bg-gray-100">
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-3 text-red-500 hover:bg-gray-100"
+                    >
                       Logout
                     </button>
                   </div>
