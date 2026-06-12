@@ -22,8 +22,7 @@ const SignupPage = () => {
 
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
 
-  // Watch password
-  const password = watch("password");
+  
 
   // Google Sign In
   const handleGoogleSignIn = async () => {
@@ -169,7 +168,7 @@ const SignupPage = () => {
 
             <span
               onClick={() => setIsShowPassword(!isShowPassword)}
-              className="absolute right-4 top-[45px] cursor-pointer text-gray-500"
+              className="absolute right-4 top-11.25 cursor-pointer text-gray-500"
             >
               {isShowPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
@@ -201,7 +200,7 @@ const SignupPage = () => {
 
             <span
               onClick={() => setIsShowConfirmPassword(!isShowConfirmPassword)}
-              className="absolute right-4 top-[45px] cursor-pointer text-gray-500"
+              className="absolute right-4 top-11.25 cursor-pointer text-gray-500"
             >
               {isShowConfirmPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
@@ -233,11 +232,11 @@ const SignupPage = () => {
 
         {/* DIVIDER */}
         <div className="flex items-center gap-3 my-6">
-          <div className="flex-1 h-[1px] bg-gray-300 dark:bg-gray-700"></div>
+          <div className="flex-1 h-px bg-gray-300 dark:bg-gray-700"></div>
 
           <span className="text-sm text-gray-500">OR</span>
 
-          <div className="flex-1 h-[1px] bg-gray-300 dark:bg-gray-700"></div>
+          <div className="flex-1 h-px bg-gray-300 dark:bg-gray-700"></div>
         </div>
 
         {/* GOOGLE LOGIN */}

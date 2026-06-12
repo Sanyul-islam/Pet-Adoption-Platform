@@ -18,7 +18,7 @@ export default function Footer() {
               </div>
 
               <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
-                Pet Adoption
+                Pet Home
               </h2>
             </div>
 
@@ -90,7 +90,7 @@ export default function Footer() {
         <div className="border-t border-gray-200 dark:border-gray-800 mt-10 pt-6 text-center">
           <p className="text-gray-600 dark:text-gray-400 text-sm">
             © {new Date().getFullYear()} Pet
-            Adoption. All rights reserved.
+            Home. All rights reserved.
           </p>
         </div>
       </div>

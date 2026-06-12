@@ -30,7 +30,7 @@ export default function Navbar() {
             </div>
 
             <h1 className="text-xl font-bold text-gray-800 dark:text-white">
-              Pet Adoption
+              Pet Home
             </h1>
           </Link>
 
