@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@heroui/react";
+import { Plus } from "@gravity-ui/icons";
 
 export default function Banner() {
   return (
@@ -26,7 +27,7 @@ export default function Banner() {
             your adoption journey today and bring happiness home.
           </p>
 
-          <div className="mt-8">
+          <div className="mt-8 gap-4 flex">
             <Link href="/pets">
               <Button
                 color="warning"
@@ -35,6 +36,16 @@ export default function Banner() {
                 className="px-8 font-semibold"
               >
                 Adopt Now
+              </Button>
+            </Link>
+            <Link href="/add-pet">
+              <Button
+                color="warning"
+                radius="full"
+                size="lg"
+                className="px-8 font-semibold"
+              >
+               <Plus/> Add-Pets
               </Button>
             </Link>
           </div>
