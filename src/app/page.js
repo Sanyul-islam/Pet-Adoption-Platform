@@ -3,6 +3,7 @@ import Footer from "@/component/Footer";
 import Banner from "@/component/HeroBanner";
 import AllPets from "@/component/AllPets";
 import WhyAdopt from "@/component/WhyAdopt";
+import SuccessStories from "@/component/SuccessStories";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
     <Banner/>
     <AllPets/>
     <WhyAdopt/>
+    <SuccessStories/>
     <Footer/>
     </>
   );

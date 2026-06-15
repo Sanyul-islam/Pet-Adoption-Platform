@@ -1,10 +1,18 @@
-import { Card } from "@heroui/react";
+import { Card, Chip } from "@heroui/react";
 
 const WhyAdopt = () => {
     return (
       <section className="mx-auto max-w-7xl px-4 py-20">
         {/* Section Heading */}
         <div className="mx-auto mb-14 max-w-3xl text-center">
+        <Chip
+                  color="warning"
+                  variant="flat"
+                  radius="full"
+                  className="mb-5 px-4 py-6 text-sm font-semibold"
+                >
+                  Why Adopt
+                </Chip>
           <h2 className="text-4xl font-extrabold tracking-tight text-foreground md:text-5xl">
             Why Adopt Pets?
           </h2>
