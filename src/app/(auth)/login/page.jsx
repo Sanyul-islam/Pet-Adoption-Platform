@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { Bounce, toast } from "react-toastify";
 
 const LoginPage = () => {
   const {
@@ -28,8 +29,21 @@ const LoginPage = () => {
       rememberMe: true,
       callbackURL: "/",
     });
-
-    console.log(res, error);
+    if (error) {
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      
+    }
+    
   };
 
   // Google Login
@@ -38,7 +52,7 @@ const LoginPage = () => {
       provider: "google",
     });
 
-    console.log(data, error);
+    
   };
 
   return (

@@ -60,7 +60,7 @@ export default function Banner() {
               width={500}
               height={500}
               priority
-              className="rounded-[40px] object-cover shadow-2xl"
+              className="h-auto w-full rounded-[40px] object-cover shadow-2xl"
             />
           </motion.div>
 
