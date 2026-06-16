@@ -1,11 +1,11 @@
 import React from 'react';
 
-const DashBoard = () => {
+const AllPets = () => {
     return (
         <div>
-            Dashboard
+            all pets
         </div>
     );
 };
 
-export default DashBoard;
+export default AllPets;

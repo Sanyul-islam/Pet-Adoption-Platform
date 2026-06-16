@@ -28,7 +28,7 @@ export default function Banner() {
           </p>
 
           <div className="mt-8 gap-4 flex">
-            <Link href="/pets">
+            <Link href="/all-pets">
               <Button
                 color="warning"
                 radius="full"

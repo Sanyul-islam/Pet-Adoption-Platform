@@ -47,19 +47,10 @@ export default function Navbar() {
 
             <li>
               <Link
-                href="/pets"
+                href="/all-pets"
                 className="text-gray-700 dark:text-gray-200 hover:text-blue-600 transition"
               >
                 All Pets
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                href="/my-requests"
-                className="text-gray-700 dark:text-gray-200 hover:text-blue-600 transition"
-              >
-                My Requests
               </Link>
             </li>
 

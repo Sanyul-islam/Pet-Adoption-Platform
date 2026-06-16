@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import { Card, Button, Chip, Avatar } from "@heroui/react";
 
-const AllPets =  () => {
+const Pets =  () => {
     const [pets, setPets] = useState([]);
 
     useEffect(() => {
@@ -46,7 +46,7 @@ const AllPets =  () => {
         </p>
       </div>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {pets.map((pet) => (
+        {pets.slice(0,6).map((pet) => (
           <Card
             key={pet._id}
             className="overflow-hidden rounded-3xl border border-default-200"
@@ -120,7 +120,8 @@ const AllPets =  () => {
                 >
                   View Details
                 </Button>
-
+                <Link href={"/"}>
+                </Link>
                 <Button
                   as={Link}
                   href={`/adopt/${pet._id}`}
@@ -135,8 +136,21 @@ const AllPets =  () => {
           </Card>
         ))}
       </div>
+        {/* CTA */}
+      <div className="mt-16 flex justify-center">
+      <Link href={"/all-pets"}>
+        <Button
+          color="secondary"
+          radius="full"
+          size="lg"
+          className="px-10 font-semibold"
+        >
+          Browse All Listed Pets
+        </Button>
+        </Link>
+      </div>
     </section>
   );
 };
 
-export default AllPets;
+export default Pets;

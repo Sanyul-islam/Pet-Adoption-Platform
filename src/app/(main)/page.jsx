@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Pets = () => {
+const layout = () => {
     return (
         <div>
-            all pets
+            check layout
         </div>
     );
 };
 
-export default Pets;
+export default layout;
