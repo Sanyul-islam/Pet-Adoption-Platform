@@ -26,6 +26,14 @@ const AllPets =  () => {
   return (
     <section className="container w-11/12 mx-auto  px-4 py-12">
       <div className="mx-auto mb-14 max-w-3xl text-center">
+        <Chip
+                  color="warning"
+                  variant="flat"
+                  radius="full"
+                  className="mb-5 px-4 py-6 text-sm font-semibold"
+                >
+                 Featured Pets
+                </Chip>
         <h1 className="text-4xl font-extrabold tracking-tight text-foreground md:text-5xl">
           Pets Available for Adoption
         </h1>

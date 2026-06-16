@@ -4,6 +4,7 @@ import Banner from "@/component/HeroBanner";
 import AllPets from "@/component/AllPets";
 import WhyAdopt from "@/component/WhyAdopt";
 import SuccessStories from "@/component/SuccessStories";
+import AdoptionProcess from "@/component/AdoptionProcess";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
     <AllPets/>
     <WhyAdopt/>
     <SuccessStories/>
+    <AdoptionProcess/>
     <Footer/>
     </>
   );

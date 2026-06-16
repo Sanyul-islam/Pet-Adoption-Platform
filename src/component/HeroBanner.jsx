@@ -8,7 +8,7 @@ import { Plus } from "@gravity-ui/icons";
 
 export default function Banner() {
   return (
-    <section className="overflow-hidden bg-linear-to-br from-orange-50 to-pink-100">
+    <section className="container mx-auto overflow-hidden bg-linear-to-br from-orange-50 to-pink-100">
       <div className="mx-auto flex min-h-screen max-w-7xl flex-col-reverse items-center justify-between gap-12 px-6 py-16 lg:flex-row">
         {/* Left Content */}
         <motion.div
