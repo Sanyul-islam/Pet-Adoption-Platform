@@ -1,11 +1,11 @@
 import React from 'react';
 
-const layout = () => {
+const DetailsPage = () => {
     return (
         <div>
-            check layout
+            pt dtls
         </div>
     );
 };
 
-export default layout;
+export default DetailsPage;

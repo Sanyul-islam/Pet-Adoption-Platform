@@ -1,39 +1,40 @@
-"use client";
 
-import { useEffect, useState } from "react";
+
+// import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 import { Card, Button, Chip, Avatar } from "@heroui/react";
+import fetchPets from "@/data/data";
 
-const Pets =  () => {
-    const [pets, setPets] = useState([]);
+const Pets = async () => {
+  const pets = await fetchPets();
+    // const [pets, setPets] = useState([]);
+    // useEffect(() => {
+    //   const fetchPets = async () => {
+    //     try {
+    //       const res = await fetch("http://localhost:8080/pet");
+    //       const data = await res.json();
 
-    useEffect(() => {
-      const fetchPets = async () => {
-        try {
-          const res = await fetch("http://localhost:8080/pet");
-          const data = await res.json();
+    //       setPets(data);
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   };
 
-          setPets(data);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-
-      fetchPets();
-    }, []);
+    //   fetchPets();
+    // }, []);
   return (
     <section className="container w-11/12 mx-auto  px-4 py-12">
       <div className="mx-auto mb-14 max-w-3xl text-center">
         <Chip
-                  color="warning"
-                  variant="flat"
-                  radius="full"
-                  className="mb-5 px-4 py-6 text-sm font-semibold"
-                >
-                 Featured Pets
-                </Chip>
+          color="warning"
+          variant="flat"
+          radius="full"
+          className="mb-5 px-4 py-6 text-sm font-semibold"
+        >
+          Featured Pets
+        </Chip>
         <h1 className="text-4xl font-extrabold tracking-tight text-foreground md:text-5xl">
           Pets Available for Adoption
         </h1>
@@ -46,14 +47,14 @@ const Pets =  () => {
         </p>
       </div>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {pets.slice(0,6).map((pet) => (
+        {pets.slice(0, 6).map((pet) => (
           <Card
             key={pet._id}
             className="overflow-hidden rounded-3xl border border-default-200"
             shadow="lg"
           >
             {/* Image */}
-            <div className="relative h-72 w-full overflow-hidden">
+            <div className="relative h-60 w-full overflow-hidden">
               <Image
                 src={pet.image}
                 alt={pet.petName}
@@ -72,7 +73,7 @@ const Pets =  () => {
             </div>
 
             {/* Content */}
-            <div className="space-y-4 p-5">
+            <div className="space-y-4 px-5">
               <h2 className="text-2xl font-bold">{pet.petName}</h2>
 
               <div className="space-y-2 text-default-600">
@@ -93,6 +94,12 @@ const Pets =  () => {
                   </span>{" "}
                   {pet.location}
                 </p>
+                <p>
+                  <span className="font-semibold text-foreground">
+                    adoptionFee: $
+                  </span>
+                  {pet.adoptionFee}
+                </p>
               </div>
               <Card.Footer className="flex gap-2">
                 <Avatar
@@ -111,42 +118,37 @@ const Pets =  () => {
               </Card.Footer>
               {/* Buttons */}
               <div className="flex gap-3 pt-4">
-                <Button
-                  as={Link}
-                  href={`/pets/${pet._id}`}
-                  variant="tertiary"
-                  radius="full"
-                  className="w-full"
-                >
-                  View Details
-                </Button>
-                <Link href={"/"}>
+                <Link href={`/all-pets/${pet._id}`}>
+                  <Button variant="tertiary" radius="full" className="w-full">
+                    View Details
+                  </Button>
                 </Link>
-                <Button
-                  as={Link}
-                  href={`/adopt/${pet._id}`}
-                  color="warning"
-                  radius="full"
-                  className="w-full font-semibold"
-                >
-                  Adopt Now
-                </Button>
+                <Link href={`/all-pets/${pet._id}`}>
+                  <Button
+                    
+                    color="warning"
+                    radius="full"
+                    className="w-full font-semibold"
+                  >
+                    Adopt Now
+                  </Button>
+                </Link>
               </div>
             </div>
           </Card>
         ))}
       </div>
-        {/* CTA */}
+      {/* CTA */}
       <div className="mt-16 flex justify-center">
-      <Link href={"/all-pets"}>
-        <Button
-          color="secondary"
-          radius="full"
-          size="lg"
-          className="px-10 font-semibold"
-        >
-          Browse All Listed Pets
-        </Button>
+        <Link href={"/all-pets"}>
+          <Button
+            color="secondary"
+            radius="full"
+            size="lg"
+            className="px-10 font-semibold"
+          >
+            Browse All Listed Pets
+          </Button>
         </Link>
       </div>
     </section>
