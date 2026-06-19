@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { Card, Button, Chip, Avatar } from "@heroui/react";
 import fetchPets from "@/data/data";
+import PetFilters from "@/component/PetFilters";
 
 const AllPets = async () => {
   const pets = await fetchPets();
@@ -18,6 +19,12 @@ const AllPets = async () => {
           ready to bring joy, loyalty, and happiness into your life. 🐾
         </p>
       </div>
+
+      {/*Search,Filter section */}
+      <div className="">
+        <PetFilters/>
+      </div>
+
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         {pets.map((pet) => (
           <Card
