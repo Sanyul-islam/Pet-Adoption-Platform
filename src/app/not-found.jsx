@@ -27,7 +27,7 @@ export default function NotFound() {
             {/* BUTTON */}
             <Link href={"/"}>
             <Button
-              as={Link}
+              
               href="/"
               color="primary"
               size="lg"

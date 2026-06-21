@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Card, Button, Chip, Avatar } from "@heroui/react";
-import fetchPets from "@/data/data";
+import {fetchPets} from "@/data/data";
 import PetFilters from "@/component/PetFilters";
 
 const AllPets = async () => {

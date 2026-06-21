@@ -1,6 +1,13 @@
-const fetchPets = async () => {
+
+export const fetchPets = async () => {
           const res = await fetch("http://localhost:8080/pet");
           const data = await res.json();
-          return data;
+          return data || [];
 }
-export default fetchPets;
+
+export const fetchPetDetails = async (id) => {
+            "use server";
+          const res = await fetch(`http://localhost:8080/pet/${id}`);
+          const data = await res.json();
+          return data || {};
+}

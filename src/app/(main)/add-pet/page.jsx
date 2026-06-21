@@ -26,7 +26,9 @@ const AddPetForm = () => {
         ...data,
         age: Number(data.age),
         adoptionFee: Number(data.adoptionFee),
-        ownerEmail: user?.email
+        ownerEmail: user?.email,
+        ownerName: user?.name,
+        ownerName: user?.name,
       };
 
       const res = await fetch("http://localhost:8080/pet", {
@@ -55,7 +57,7 @@ const AddPetForm = () => {
 
   return (
     <Card className="mx-auto max-w-5xl rounded-3xl p-8 shadow-lg">
-      <div className="mb-8">
+      <div className="mb-8 text-center">
         <h2 className="text-3xl font-bold">Add a Pet for Adoption</h2>
 
         <p className="mt-2 text-default-500">
@@ -181,12 +183,16 @@ const AddPetForm = () => {
             Health Status
           </label>
 
-          <Input
-            placeholder="Healthy"
+          <select
             {...register("healthStatus", {
-              required: "Health status is required",
+              required: "Health conditon is required",
             })}
-          />
+            className="h-12 w-full rounded-xl border border-default-200 bg-background px-4 outline-none"
+          >
+            <option value="">Select Condition</option>
+            <option value="Healthy">Healthy</option>
+            <option value="Scick">Sick</option>
+          </select>
 
           {errors.healthStatus && (
             <p className="mt-1 text-sm text-danger">
@@ -201,12 +207,16 @@ const AddPetForm = () => {
             Vaccination Status
           </label>
 
-          <Input
-            placeholder="Vaccinated"
+          <select
             {...register("vaccinationStatus", {
-              required: "Vaccination status is required",
+              required: "vaccination Status is required",
             })}
-          />
+            className="h-12 w-full rounded-xl border border-default-200 bg-background px-4 outline-none"
+          >
+            <option value="">Select vaccination</option>
+            <option value="vaccinated">vaccinated</option>
+            <option value="Not vaccinated">Not vaccinated</option>
+          </select>
 
           {errors.vaccinationStatus && (
             <p className="mt-1 text-sm text-danger">
@@ -259,26 +269,38 @@ const AddPetForm = () => {
           <Input value={user?.email || ""} readOnly />
         </div>
 
+        {/* Owner Name */}
+        <div>
+          <label className="mb-2 block text-sm font-medium">Owner Name</label>
+
+          <Input
+            value={user?.name || ""}
+            placeholder={user?.name}
+            readOnly
+          />
+        </div>
+
         {/* Description */}
         <div className="md:col-span-2 ">
-            <div className="flex flex-col">
+          <div className="flex flex-col">
+            <label className="mb-2 block text-sm font-medium">
+              Description
+            </label>
 
-          <label className="mb-2 block text-sm font-medium">Description</label>
+            <TextArea
+              placeholder="Tell adopters about your pet..."
+              className="h-32 w-100"
+              {...register("description", {
+                required: "Description is required",
+              })}
+            />
 
-          <TextArea
-            placeholder="Tell adopters about your pet..."
-            minRows={5}
-            {...register("description", {
-              required: "Description is required",
-            })}
-          />
-
-          {errors.description && (
-            <p className="mt-1 text-sm text-danger">
-              {errors.description.message}
-            </p>
-          )}
-            </div>
+            {errors.description && (
+              <p className="mt-1 text-sm text-danger">
+                {errors.description.message}
+              </p>
+            )}
+          </div>
         </div>
 
         {/* Submit Button */}
