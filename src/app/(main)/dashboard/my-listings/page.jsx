@@ -5,11 +5,58 @@ import { Card, Button, Chip } from "@heroui/react";
 import { Pencil, Trash2, MessageSquare, PawPrint, EyeIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
+import { RequestModal } from "@/component/RequestModal";
+import { toast } from "react-toastify";
 
 const MyListingsPage = () => {
+    
     const { data: session } = authClient.useSession();
             const user = session?.user;
             const [pets, setPets] = useState([]);
+            const [requests, setRequests] = useState([]);
+           
+
+             const loadRequests = async (petId) => {
+               const res = await fetch(
+                 `http://localhost:8080/adoption-requests/${petId}`,
+               );
+
+               const data = await res.json();
+               setRequests(data);
+             };
+
+             const handleApprove = async (id) => {
+               try {
+                 const res = await fetch(
+                   `http://localhost:8080/adoption-requests/approve/${id}`,
+                   {
+                     method: "PATCH",
+                   },
+                 );
+
+                 const data = await res.json();
+
+                 if (data.modifiedCount > 0) {
+                   toast.success("Request approved!");
+
+                   setRequests((prev) =>
+                     prev.map((request) =>
+                       request._id === id
+                         ? { ...request, status: "approved" }
+                         : request,
+                     ),
+                   );
+                 }
+               } catch (error) {
+                 toast.error("Failed to approve request");
+                 console.error(error);
+               }
+             };
+
+             const handleReject = async (id) => {
+               console.log(id);
+             };
+
     
             useEffect(() => {
               if (!user?.email) return;
@@ -124,13 +171,11 @@ const MyListingsPage = () => {
                   {/* Actions */}
                   <div className="mt-5 grid grid-cols-2 gap-2">
                     {/* View */}
-                    <Button
-                      as={Link}
-                      href={`/all-pets/${pet._id}`}
-                      color="primary"
-                    >
-                      <EyeIcon size={18} /> View
-                    </Button>
+                    <Link href={`/all-pets/${pet._id}`}>
+                      <Button>
+                        <EyeIcon size={18} /> View
+                      </Button>
+                    </Link>
 
                     {/* Edit */}
                     <Button
@@ -141,12 +186,13 @@ const MyListingsPage = () => {
                     </Button>
 
                     {/* Requests */}
-                    <Button
-                      color="warning"
-                      onPress={() => console.log("Open Requests Modal")}
-                    >
-                      <MessageSquare size={18} /> Requests
-                    </Button>
+                    <RequestModal
+                      pet={pet}
+                      requests={requests}
+                      loadRequests={loadRequests}
+                      handleApprove={handleApprove}
+                      handleReject={handleReject}
+                    />
 
                     {/* Delete */}
                     <Button

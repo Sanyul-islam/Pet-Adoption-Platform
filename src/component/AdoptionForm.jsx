@@ -2,8 +2,49 @@
 import { Modal } from "@heroui/react";
 import { Controlled } from "@/component/DatePicker";
 import { Button,TextField, Label, TextArea, FieldError, Description } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 const AdoptionForm = ({pet}) => {
+  const { data: session, isPending } = authClient.useSession();
+  const user = session?.user;
+  const [pickupDate, setPickupDate] = useState(null);
+  const [message, setMessage] = useState("");
+ const handleSubmit = async () => {
+
+   const requestData = {
+     petId: pet._id,
+     petName: pet.petName,
+     userName: user.name,
+     userEmail: user.email,
+     ownerEmail: pet.ownerEmail,
+     pickupDate: pickupDate?.toString(),
+     message,
+     status: "pending",
+     createdAt: new Date(),
+   };
+
+   try {
+     const res = await fetch("http://localhost:8080/adoption-requests", {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify(requestData),
+     });
+
+     const data = await res.json();
+
+     if (data.insertedId) {
+       toast.success("Adoption request sent!");
+
+       
+     }
+   } catch (error) {
+     toast.error("Failed to send request");
+   }
+ };
     return (
       <Modal>
         <Button size="lg">Adopt Now</Button>
@@ -42,14 +83,19 @@ const AdoptionForm = ({pet}) => {
                     {pet.ownerEmail}
                   </p>
                   {/** Date Picker **/}
-                  <Controlled></Controlled>
+                  <Controlled
+                    value={pickupDate}
+                    onChange={setPickupDate}
+                  ></Controlled>
                   {/** Text Aria **/}
                   <TextField
                     isRequired
-                    name="bio"
+                    name="message"
+                    value={message}
+                    onChange={setMessage}
                     validate={(value) => {
                       if (value.length < 10) {
-                        return "Bio must be at least 10 characters";
+                        return "message must be at least 10 characters";
                       }
                       return null;
                     }}
@@ -62,7 +108,7 @@ const AdoptionForm = ({pet}) => {
                 </div>
               </Modal.Body>
               <Modal.Footer>
-                <Button className="w-full" slot="close">
+                <Button onPress={handleSubmit} className="w-full" slot="close">
                   Confirm Adoption
                 </Button>
               </Modal.Footer>

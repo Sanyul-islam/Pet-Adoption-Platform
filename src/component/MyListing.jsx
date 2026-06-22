@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Card, Button, Chip } from "@heroui/react";
-import { Eye, Pencil, Trash2, MessageSquare, PawPrint, EyeIcon } from "lucide-react";
+import { Pencil, Trash2, MessageSquare, PawPrint, EyeIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 
@@ -10,7 +10,7 @@ export default function MyListings() {
         const { data: session } = authClient.useSession();
         const user = session?.user;
         const [pets, setPets] = useState([]);
-
+       
         useEffect(() => {
           if (!user?.email) return;
 

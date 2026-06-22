@@ -15,6 +15,7 @@ const SignupPage = () => {
     watch,
     formState: { errors },
   } = useForm();
+  const password = watch("password");
 
   const router = useRouter();
 
@@ -56,7 +57,7 @@ const SignupPage = () => {
     }
 
     if (res) {
-      toast.success("Sign-Up successful", {
+      toast.success("Sign-Up successful.\nPlease login", {
         position: "top-center",
         autoClose: 3000,
         theme: "colored",
