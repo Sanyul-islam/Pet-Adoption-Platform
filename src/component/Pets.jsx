@@ -46,11 +46,11 @@ const Pets = async () => {
           your perfect companion.
         </p>
       </div>
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 ">
         {pets.slice(0, 6).map((pet) => (
           <Card
             key={pet._id}
-            className="overflow-hidden rounded-3xl border border-default-200"
+            className="flex h-full flex-col overflow-hidden rounded-3xl border border-default-200"
             shadow="lg"
           >
             {/* Image */}
@@ -59,9 +59,7 @@ const Pets = async () => {
                 src={pet.image}
                 alt={pet.petName}
                 fill
-                priority
-                sizes="(max-width: 768px) 100vw,
-                (max-width: 1200px) 50vw,33vw"
+                sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw"
                 className="object-cover transition duration-500 hover:scale-110"
               />
 
@@ -73,16 +71,17 @@ const Pets = async () => {
             </div>
 
             {/* Content */}
-            <div className="space-y-4 px-5">
-              <h2 className="text-2xl font-bold">{pet.petName}</h2>
+            <div className="flex flex-1 flex-col p-5">
+              <h2 className="mb-3 text-2xl font-bold">{pet.petName}</h2>
 
               <div className="space-y-2 text-default-600">
-                <p>
+                <p className="line-clamp-3">
                   <span className="font-semibold text-foreground">
                     Description:
                   </span>{" "}
                   {pet.description}
                 </p>
+
                 <p>
                   <span className="font-semibold text-foreground">Age:</span>{" "}
                   {pet.age}
@@ -94,45 +93,49 @@ const Pets = async () => {
                   </span>{" "}
                   {pet.location}
                 </p>
+
                 <p>
                   <span className="font-semibold text-foreground">
-                    adoptionFee: $
-                  </span>
-                  {pet.adoptionFee}
+                    Adoption Fee:
+                  </span>{" "}
+                  ${pet.adoptionFee}
                 </p>
               </div>
-              <Card.Footer className="flex gap-2">
-                <Avatar
-                  aria-label={`${pet.ownerName}'s profile picture`}
-                  className="size-5"
-                >
-                  <Avatar.Image
-                    alt={`${pet.ownerName}'s Avater`}
-                    src={
-                      pet?.ownerImage || "https://i.ibb.co/4pDNDk1/avatar.png"
-                    }
-                  />
-                  <Avatar.Fallback className="text-xs">IH</Avatar.Fallback>
-                </Avatar>
-                <span className="text-xs">By {pet.ownerName}</span>
-              </Card.Footer>
-              {/* Buttons */}
-              <div className="flex gap-3 pt-4">
-                <Link href={`/all-pets/${pet._id}`}>
-                  <Button variant="tertiary" radius="full" className="w-full">
-                    View Details
-                  </Button>
-                </Link>
-                <Link href={`/all-pets/${pet._id}`}>
-                  <Button
+
+              {/* Push bottom content down */}
+              <div className="mt-auto pt-5">
+                {/* Owner */}
+                <div className="mb-4 flex items-center gap-2">
+                  <Avatar>
+                    <Avatar.Image
+                      alt={pet?.ownerName}
+                      src={
+                        pet?.ownerImage || "https://i.ibb.co/4pDNDk1/avatar.png"
+                      }
+                    />
+                    <Avatar.Fallback>{pet?.ownerName}</Avatar.Fallback>
                     
-                    color="warning"
-                    radius="full"
-                    className="w-full font-semibold"
-                  >
-                    Adopt Now
-                  </Button>
-                </Link>
+                  </Avatar>
+
+                  <span className="text-sm text-default-500">
+                    By {pet.ownerName}
+                  </span>
+                </div>
+
+                {/* Buttons */}
+                <div className="grid grid-cols-2 gap-3">
+                  <Link href={`/all-pets/${pet._id}`}>
+                    <Button variant="tertiary" radius="full" className="w-full">
+                      View Details
+                    </Button>
+                  </Link>
+
+                  <Link href={`/all-pets/${pet._id}`}>
+                    <Button color="warning" radius="full" className="w-full">
+                      Adopt Now
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </Card>

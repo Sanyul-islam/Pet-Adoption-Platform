@@ -7,7 +7,7 @@ import AdoptionForm from "@/component/AdoptionForm";
 
 
 const DetailsPage = async ({ params }) => {
-  const { id } = await params; // use const id = params.id if your Next.js version doesn't require await
+  const { id } = await params;
 
   const pet = await fetchPetDetails(id);
 
@@ -50,9 +50,11 @@ const DetailsPage = async ({ params }) => {
           <div className="flex flex-col justify-between p-8">
             <div className="flex items-center gap-3 border-b">
               <Avatar className="my-3">
-                <Avatar.Image
-                  alt={pet.ownerName}
-                  src={pet.ownerImage || "https://i.ibb.co/4pDNDk1/avatar.png"}
+                <Image
+                  src={pet?.ownerImage || "https://i.ibb.co/4pDNDk1/avatar.png"}
+                  alt={pet?.ownerName}
+                  fill
+                  priority
                 />
                 <Avatar.Fallback>{pet.ownerName}</Avatar.Fallback>
               </Avatar>
@@ -64,10 +66,23 @@ const DetailsPage = async ({ params }) => {
               </div>
             </div>
             <div>
-              <div className="mb-4 flex items-center gap-3 mt-5">
-                <h2 className="text-3xl font-bold">{pet.petName}</h2>
+              <div className="mb-4 flex mt-5 justify-between">
+                <div className="flex items-center gap-3">
+                  <h2 className="text-3xl font-bold">{pet.petName}</h2>
 
-                <Chip color="warning">{pet.species}</Chip>
+                  <Chip color="warning">{pet.species}</Chip>
+                </div>
+
+                <div className="">
+                  <p>
+                    <span className="font-semibold text-foreground text-xl">
+                      Adoption Fee:
+                    </span>{" "}
+                    <span className="text-3xl text-blue-500 font-bold">
+                      ${pet.adoptionFee}
+                    </span>
+                  </p>
+                </div>
               </div>
 
               <div className="space-y-3 text-default-600">
@@ -109,13 +124,6 @@ const DetailsPage = async ({ params }) => {
 
                 <p>
                   <span className="font-semibold text-foreground">
-                    Adoption Fee:
-                  </span>{" "}
-                  ${pet.adoptionFee}
-                </p>
-
-                <p>
-                  <span className="font-semibold text-foreground">
                     Description:
                   </span>{" "}
                   {pet.description}
@@ -127,7 +135,12 @@ const DetailsPage = async ({ params }) => {
             <div className="mt-8 border-t pt-2">
               <div className="mt-6 flex gap-3">
                 <Link href="/all-pets">
-                  <Button href="/all-pets" variant="tertiary" radius="full" size="lg">
+                  <Button
+                    href="/all-pets"
+                    variant="tertiary"
+                    radius="full"
+                    size="lg"
+                  >
                     Back to Pets
                   </Button>
                 </Link>

@@ -28,7 +28,7 @@ const AddPetForm = () => {
         adoptionFee: Number(data.adoptionFee),
         ownerEmail: user?.email,
         ownerName: user?.name,
-        ownerName: user?.name,
+        ownerImage: user?.image,
       };
 
       const res = await fetch("http://localhost:8080/pet", {

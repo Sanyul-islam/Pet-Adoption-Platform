@@ -3,6 +3,12 @@
 import { useState } from "react";
 
 import { Card, Button, Chip } from "@heroui/react";
+import { Heart } from "lucide-react";
+import { PiFilePlusThin, PiPlusLight } from "react-icons/pi";
+import AddPetForm from "../add-pet/page";
+import { MyRequest } from "@/component/MyRequest";
+import MyListings from "@/component/MyListing";
+import MyListingsPage from "./my-listings/page";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("requests");
@@ -38,94 +44,72 @@ const Dashboard = () => {
 
           <div className="flex flex-col gap-4">
             <Button
-              color={activeTab === "requests" ? "warning" : "default"}
-              variant={activeTab === "requests" ? "solid" : "bordered"}
               radius="full"
-              className="justify-start"
               onPress={() => setActiveTab("requests")}
+              className={`justify-start ${
+                activeTab === "requests" ? "bg-success text-white" : ""
+              }`}
             >
-              My Requests
+              <PiFilePlusThin /> My Requests
             </Button>
 
             <Button
-              color={activeTab === "addPet" ? "warning" : "default"}
-              variant={activeTab === "addPet" ? "solid" : "bordered"}
               radius="full"
-              className="justify-start"
               onPress={() => setActiveTab("addPet")}
+              className={`justify-start ${
+                activeTab === "addPet" ? "bg-success text-white" : ""
+              }`}
             >
-              Add Pet
+              <PiPlusLight /> Add Pet
             </Button>
 
             <Button
-              color={activeTab === "listings" ? "warning" : "default"}
-              variant={activeTab === "listings" ? "solid" : "bordered"}
               radius="full"
-              className="justify-start"
               onPress={() => setActiveTab("listings")}
+              className={`justify-start ${
+                activeTab === "listings" ? "bg-success text-white" : ""
+              }`}
             >
-              My Listings
+              <Heart /> My Listings
             </Button>
           </div>
         </Card>
 
         {/* Right Content */}
-        <Card
+        <div
           shadow="lg"
-          className="rounded-3xl border border-default-200 p-8 lg:col-span-9"
+          className="rounded-3xl border border-default-200 lg:col-span-9"
         >
-          {/* My Requests */}
-          {activeTab === "requests" && (
-            <div>
-              <h2 className="text-3xl font-bold">My Requests</h2>
+          
+            {/* My Requests */}
+            {activeTab === "requests" && (
+              <div>
+                <MyRequest/>
 
-              <p className="mt-3 text-default-500">
-                Here you can manage all your adoption requests and track their
-                current status.
-              </p>
-
-              <div className="mt-8 rounded-2xl bg-default-100 p-6">
-                <p className="text-default-600">
-                  No adoption requests found yet.
-                </p>
+                <div className="mt-8 rounded-2xl bg-default-100 p-6">
+                  <p className="text-default-600">
+                    No adoption requests yet.
+                  </p>
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Add Pet */}
-          {activeTab === "addPet" && (
-            <div>
-              <h2 className="text-3xl font-bold">Add Pet</h2>
-
-              <p className="mt-3 text-default-500">
-                Add a new pet listing and help them find a loving forever home.
-              </p>
-
-              <div className="mt-8 rounded-2xl bg-default-100 p-6">
-                <p className="text-default-600">
-                  Pet form component will appear here.
-                </p>
+            {/* Add Pet */}
+            {activeTab === "addPet" && (
+              <div className="h-50vh">
+                <AddPetForm />
               </div>
-            </div>
-          )}
+            )}
 
-          {/* My Listings */}
-          {activeTab === "listings" && (
-            <div>
-              <h2 className="text-3xl font-bold">My Listings</h2>
-
-              <p className="mt-3 text-default-500">
-                View and manage all pets you have listed for adoption.
-              </p>
-
-              <div className="mt-8 rounded-2xl bg-default-100 p-6">
-                <p className="text-default-600">
-                  Your pet listings will appear here.
-                </p>
+            {/* My Listings */}
+            {activeTab === "listings" && (
+              <div>
+               {/* <MyListings/> */}
+               <MyListingsPage/>
               </div>
-            </div>
-          )}
-        </Card>
+            )}
+         
+        </div>
       </div>
     </section>
   );
