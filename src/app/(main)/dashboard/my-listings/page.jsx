@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Card, Button, Chip } from "@heroui/react";
-import { Pencil, Trash2, MessageSquare, PawPrint, EyeIcon } from "lucide-react";
+import { Pencil, Trash2, PawPrint, EyeIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { RequestModal } from "@/component/RequestModal";
@@ -49,12 +49,35 @@ const MyListingsPage = () => {
                  }
                } catch (error) {
                  toast.error("Failed to approve request");
-                 console.error(error);
                }
              };
 
              const handleReject = async (id) => {
-               console.log(id);
+               try {
+                 const res = await fetch(
+                   `http://localhost:8080/adoption-requests/reject/${id}`,
+                   {
+                     method: "PATCH",
+                   },
+                 );
+
+                 const data = await res.json();
+
+                 if (data.modifiedCount > 0) {
+                   toast.success("Request rejected!");
+
+                   setRequests((prev) =>
+                     prev.map((request) =>
+                       request._id === id
+                         ? { ...request, status: "rejected" }
+                         : request,
+                     ),
+                   );
+                 }
+               } catch (error) {
+                 toast.error("Failed to reject request");
+                 console.error(error);
+               }
              };
 
     

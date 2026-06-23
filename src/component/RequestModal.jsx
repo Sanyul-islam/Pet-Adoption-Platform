@@ -2,7 +2,7 @@
 
 import { Button, Modal, Chip} from "@heroui/react";
 import { MessageSquare } from "lucide-react";
-import { useState } from "react";
+
 
 export function RequestModal({
   requests = [],
@@ -78,6 +78,10 @@ export function RequestModal({
                           {request.userEmail}
                         </p>
 
+                        <p>
+                          <span className="font-semibold">Request Date:</span>{" "}
+                          {request.requestDate}
+                        </p>
                         <p>
                           <span className="font-semibold">Pickup Date:</span>{" "}
                           {request.pickupDate}
