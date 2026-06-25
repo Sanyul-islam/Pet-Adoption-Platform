@@ -53,6 +53,7 @@ const DetailsPage = async ({ params }) => {
                 <Image
                   src={pet?.ownerImage || "https://i.ibb.co/4pDNDk1/avatar.png"}
                   alt={pet?.ownerName}
+                  sizes="40px"
                   fill
                   priority
                 />

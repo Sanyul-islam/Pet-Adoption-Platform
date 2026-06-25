@@ -25,25 +25,22 @@ const AdoptionForm = ({pet}) => {
      createdAt: new Date(),
    };
 
-   try {
-     const res = await fetch("http://localhost:8080/adoption-requests", {
-       method: "POST",
-       headers: {
-         "Content-Type": "application/json",
-       },
-       body: JSON.stringify(requestData),
-     });
+   const res = await fetch("http://localhost:8080/adoption-requests", {
+     method: "POST",
+     headers: {
+       "Content-Type": "application/json",
+     },
+     body: JSON.stringify(requestData),
+   });
 
-     const data = await res.json();
+   const data = await res.json();
 
-     if (data.insertedId) {
-       toast.success("Adoption request sent!");
-
-       
-     }
-   } catch (error) {
-     toast.error("Failed to send request");
+   if (!res.ok) {
+     toast.error(data.message);
+     return;
    }
+
+   toast.success("Request submitted successfully!");
  };
     return (
       <Modal>

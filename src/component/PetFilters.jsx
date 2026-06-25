@@ -1,36 +1,89 @@
 "use client";
 
-import { Search } from "lucide-react";
-import { Card, Input, Button } from "@heroui/react";
+import { Label, SearchField, ListBox, Select } from "@heroui/react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function PetFilters() {
-  return (
-    <Card className="mb-8 rounded-3xl p-6">
-      <div className="grid grid-cols-1 gap-4 md:flex mx-auto">
-        <div className="flex justify-center align-middle gap-3">
-        <Input
-          placeholder="Search pets by name..."
-          // startContent={<Search size={18} />}
-        />
-        <Button variant="primary" className="mt-2">Seach</Button>
-        </div>
-        
-        <select className="h-12 rounded-xl border border-default-200 bg-background px-4">
-          <option value="All">All Species</option>
-          <option value="Dog">Dog</option>
-          <option value="Cat">Cat</option>
-          <option value="Rabbit">Rabbit</option>
-          <option value="Bird">Bird</option>
-        </select>
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-        <select className="h-12 rounded-xl border border-default-200 bg-background px-4">
-          <option value="latest">Latest Added</option>
-          <option value="name-asc">Name (A-Z)</option>
-          <option value="name-desc">Name (Z-A)</option>
-          <option value="age-low">Age (Low → High)</option>
-          <option value="age-high">Age (High → Low)</option>
-        </select>
-      </div>
-    </Card>
+  const handleSearch = (e) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (e.target.value.trim()) {
+      params.set("search", e.target.value);
+    } else {
+      params.delete("search");
+    }
+
+    router.push(`/all-pets?${params.toString()}`);
+  };
+
+const handleSpecies = (value) => {
+  console.log(value);
+
+  const params = new URLSearchParams(searchParams.toString());
+
+  if (value) {
+    params.set("species", value);
+  } else {
+    params.delete("species");
+  }
+
+  router.push(`/all-pets?${params.toString()}`);
+};
+
+  return (
+    <div className="mb-8 grid gap-4 md:grid-cols-2">
+      <SearchField name="search">
+        <Label>Search</Label>
+
+        <SearchField.Group>
+          <SearchField.SearchIcon />
+
+          <SearchField.Input
+            className="w-70"
+            placeholder="Search by pet name..."
+            onChange={handleSearch}
+          />
+        </SearchField.Group>
+      </SearchField>
+
+      <Select placeholder="Filter by Species" onChange={handleSpecies}>
+        <Label>Species</Label>
+
+        <Select.Trigger>
+          <Select.Value />
+          <Select.Indicator />
+        </Select.Trigger>
+
+        <Select.Popover>
+          <ListBox>
+            <ListBox.Item id="" textValue="All Species">
+              All
+            </ListBox.Item>
+            <ListBox.Item id="Dog" textValue="Dog">
+              Dog
+            </ListBox.Item>
+
+            <ListBox.Item id="Cat" textValue="Cat">
+              Cat
+            </ListBox.Item>
+
+            <ListBox.Item id="Bird" textValue="Bird">
+              Bird
+            </ListBox.Item>
+
+            <ListBox.Item id="Rabbit" textValue="Rabbit">
+              Rabbit
+            </ListBox.Item>
+
+            <ListBox.Item id="Fish" textValue="Fish">
+              Fish
+            </ListBox.Item>
+          </ListBox>
+        </Select.Popover>
+      </Select>
+    </div>
   );
 }

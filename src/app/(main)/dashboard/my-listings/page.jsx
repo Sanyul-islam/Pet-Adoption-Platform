@@ -184,7 +184,14 @@ const MyListingsPage = () => {
                         <h3 className="text-2xl font-bold">{pet.petName}</h3>
                         <Chip color="warning">{pet.species}</Chip>
                       </div>
-                      <div className="">0 Request</div>
+                      <div className="font-medium">
+                        {
+                          requests.filter(
+                            (request) => request.petId === pet._id,
+                          ).length
+                        }{" "}
+                        Requests
+                      </div>
                     </div>
                     <p className="mt-2 text-xl font-semibold text-primary">
                       <span>Price:</span>${pet.adoptionFee}

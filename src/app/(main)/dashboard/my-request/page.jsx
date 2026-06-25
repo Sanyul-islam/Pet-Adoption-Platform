@@ -71,9 +71,9 @@ export default function MyRequests() {
 
       {requests.length === 0 ? (
         <Card>
-          <Card.content>
+          <Card.Content>
             <p className="text-center text-default-500">No requests found.</p>
-          </Card.content>
+          </Card.Content>
         </Card>
       ) : (
         <div className="grid gap-5">
