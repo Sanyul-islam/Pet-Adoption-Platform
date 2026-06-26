@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { RequestModal } from "@/component/RequestModal";
 import { toast } from "react-toastify";
+import DeletePetModal from "@/component/DeletePetModal";
 
 const MyListingsPage = () => {
     
@@ -24,6 +25,20 @@ const MyListingsPage = () => {
                const data = await res.json();
                setRequests(data);
              };
+              useEffect(() => {
+                if (!user?.email) return;
+
+                const loadPets = async () => {
+                  const res = await fetch(
+                    `http://localhost:8080/my-pets/${user.email}`,
+                  );
+                  const data = await res.json();
+
+                  setPets(data);
+                };
+
+                loadPets();
+              }, [user?.email]);
 
              const handleApprove = async (id) => {
                try {
@@ -79,24 +94,24 @@ const MyListingsPage = () => {
                  console.error(error);
                }
              };
+             const handleDelete = async (id) => {
+               try {
+                 const res = await fetch(`http://localhost:8080/pet/${id}`, {
+                   method: "DELETE",
+                 });
 
-    
-            useEffect(() => {
-              if (!user?.email) return;
+                 const data = await res.json();
 
-              const loadPets = async () => {
-                const res = await fetch(
-                  `http://localhost:8080/my-pets/${user.email}`,
-                );
-                const data = await res.json();
+                 if (data.deletedCount > 0) {
+                   toast.success("Pet deleted successfully!");
 
-                setPets(data);
-              };
-            
-              loadPets();
-            }, [user?.email]);
-        
-          
+                   setPets((prev) => prev.filter((pet) => pet._id !== id));
+                 }
+               } catch (error) {
+                 console.log(error);
+                 toast.error("Failed to delete pet");
+               }
+             };
         
           if (!pets) {
             return (
@@ -208,12 +223,11 @@ const MyListingsPage = () => {
                     </Link>
 
                     {/* Edit */}
-                    <Button
-                      variant="tertiary"
-                      onPress={() => console.log("Edit Pet")}
-                    >
-                      <Pencil size={18} /> Edit
-                    </Button>
+                    <Link href={`/dashboard/update-pet/${pet._id}`}>
+                      <Button color="primary" variant="tertiary">
+                        <Pencil size={18} /> Edit
+                      </Button>
+                    </Link>
 
                     {/* Requests */}
                     <RequestModal
@@ -225,13 +239,7 @@ const MyListingsPage = () => {
                     />
 
                     {/* Delete */}
-                    <Button
-                      color="danger"
-                      variant="danger"
-                      onPress={() => console.log("Delete Pet")}
-                    >
-                      <Trash2 size={18} /> Delete
-                    </Button>
+                    <DeletePetModal pet={pet} onDelete={handleDelete} />
                   </div>
                 </div>
               </div>

@@ -20,8 +20,6 @@ export default function PetFilters() {
   };
 
 const handleSpecies = (value) => {
-  console.log(value);
-
   const params = new URLSearchParams(searchParams.toString());
 
   if (value) {
