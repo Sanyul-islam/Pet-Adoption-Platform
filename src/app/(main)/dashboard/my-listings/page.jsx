@@ -43,7 +43,7 @@ const MyListingsPage = () => {
              const handleApprove = async (id) => {
                try {
                  const res = await fetch(
-                   `http://localhost:8080/adoption-requests/approve/${id}`,
+                   `http://localhost:8080/adoption-request/approve/${id}`,
                    {
                      method: "PATCH",
                    },
@@ -51,26 +51,27 @@ const MyListingsPage = () => {
 
                  const data = await res.json();
 
-                 if (data.modifiedCount > 0) {
-                   toast.success("Request approved!");
-
-                   setRequests((prev) =>
-                     prev.map((request) =>
-                       request._id === id
-                         ? { ...request, status: "approved" }
-                         : request,
-                     ),
-                   );
+                 if (!res.ok) {
+                   toast.error(data.message);
+                   return;
                  }
+
+                 toast.success("Request approved!");
+
+                 // Reload latest requests
+                 await loadRequests(selectedPetId);
+
+                 // Reload pet list so adopted status/count updates
+                 loadPets();
                } catch (error) {
                  toast.error("Failed to approve request");
                }
              };
 
-             const handleReject = async (id) => {
+             const handleReject = async (requestId, petId) => {
                try {
                  const res = await fetch(
-                   `http://localhost:8080/adoption-requests/reject/${id}`,
+                   `http://localhost:8080/adoption-request/reject/${requestId}`,
                    {
                      method: "PATCH",
                    },
@@ -78,20 +79,17 @@ const MyListingsPage = () => {
 
                  const data = await res.json();
 
-                 if (data.modifiedCount > 0) {
-                   toast.success("Request rejected!");
-
-                   setRequests((prev) =>
-                     prev.map((request) =>
-                       request._id === id
-                         ? { ...request, status: "rejected" }
-                         : request,
-                     ),
-                   );
+                 if (!res.ok) {
+                   toast.error(data.message);
+                   return;
                  }
+
+                 toast.success("Request rejected!");
+
+                 await loadRequests(petId);
                } catch (error) {
-                 toast.error("Failed to reject request");
                  console.error(error);
+                 toast.error("Failed to reject request");
                }
              };
              const handleDelete = async (id) => {

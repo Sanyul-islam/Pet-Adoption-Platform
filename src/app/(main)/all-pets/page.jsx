@@ -129,18 +129,28 @@ const AllPets = async ({ searchParams }) => {
                       </Button>
                     </Link>
 
-                    <Link href={`/all-pets/${pet._id}`}>
-                      <Button color="warning" radius="full" className="w-full">
-                        Adopt Now
+                    {pet.adopted ? (
+                      <Button color="success" isDisabled>
+                        Adopted
                       </Button>
-                    </Link>
+                    ) : (
+                      <Link href={`/all-pets/${pet._id}`}>
+                        <Button
+                          color="warning"
+                          radius="full"
+                          className="w-full"
+                        >
+                          Adopt Now
+                        </Button>
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
             </Card>
           ))}
         </div>
-      )} 
+      )}
     </section>
   );
 };

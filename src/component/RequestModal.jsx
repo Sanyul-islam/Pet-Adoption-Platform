@@ -82,7 +82,7 @@ export function RequestModal({
 
                           <p>
                             <span className="font-semibold">Request Date:</span>{" "}
-                            {request.requestDate}
+                            {new Date(request.createdAt).toLocaleDateString()}
                           </p>
                           <p>
                             <span className="font-semibold">Pickup Date:</span>{" "}
@@ -90,7 +90,7 @@ export function RequestModal({
                           </p>
                         </div>
 
-                        {request.status === "pending" && (
+                        {request.status === "pending" && !pet.adopted && (
                           <div className="mt-5 flex gap-3">
                             <Button
                               color="success"
@@ -102,7 +102,7 @@ export function RequestModal({
                             <Button
                               color="danger"
                               variant="danger"
-                              onPress={() => handleReject(request._id)}
+                              onPress={() => handleReject(request._id, pet._id)}
                             >
                               Reject
                             </Button>

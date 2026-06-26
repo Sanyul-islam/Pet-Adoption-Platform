@@ -22,6 +22,7 @@ const AdoptionForm = ({pet}) => {
      pickupDate: pickupDate?.toString(),
      message,
      status: "pending",
+     adopted: false,
      createdAt: new Date(),
    };
 
@@ -37,6 +38,10 @@ const AdoptionForm = ({pet}) => {
 
    if (!res.ok) {
      toast.error(data.message);
+     return;
+   }
+   if (user.email === pet.ownerEmail) {
+     toast.error("You cannot adopt your own pet.");
      return;
    }
 
