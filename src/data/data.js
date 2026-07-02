@@ -6,9 +6,12 @@ export const fetchPets = async (search = "", species = "") => {
   if (search) params.append("search", search);
   if (species) params.append("species", species);
 
-  const res = await fetch(`http://localhost:8080/pet?${params.toString()}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `${process.env.CLIENT_SERVER_URL}/pet?${params.toString()}`,
+    {
+      cache: "no-store",
+    },
+  );
 
   return await res.json();
 };
@@ -16,11 +19,14 @@ export const fetchPets = async (search = "", species = "") => {
 export const fetchPetDetails = async (id,token) => {
   
             
-          const res = await fetch(`http://localhost:8080/pet/${id}`,{
-            headers:{
-              authorization : `Bearer ${token}` || ""
-            }
-          });
+          const res = await fetch(
+            `${process.env.CLIENT_SERVER_URL}/pet/${id}`,
+            {
+              headers: {
+                authorization: `Bearer ${token}` || "",
+              },
+            },
+          );
           console.log(res.status);
           const data = await res.json();
           return data || {};

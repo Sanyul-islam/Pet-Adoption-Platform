@@ -31,7 +31,7 @@ const AddPetForm = () => {
         ownerImage: user?.image,
       };
 
-      const res = await fetch("http://localhost:8080/pet", {
+      const res = await fetch(`${process.env.CLIENT_SERVER_URL}/pet`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -26,13 +26,16 @@ const AdoptionForm = ({pet}) => {
      createdAt: new Date(),
    };
 
-   const res = await fetch("http://localhost:8080/adoption-requests", {
-     method: "POST",
-     headers: {
-       "Content-Type": "application/json",
+   const res = await fetch(
+     `${process.env.CLIENT_SERVER_URL}/adoption-requests`,
+     {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify(requestData),
      },
-     body: JSON.stringify(requestData),
-   });
+   );
 
    const data = await res.json();
 

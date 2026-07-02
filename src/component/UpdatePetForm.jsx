@@ -35,13 +35,16 @@ const UpdatePetForm = ({ pet }) => {
     e.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:8080/pet/${pet._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${process.env.CLIENT_SERVER_URL}/pet/${pet._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         },
-        body: JSON.stringify(formData),
-      });
+      );
 
       const data = await res.json();
 

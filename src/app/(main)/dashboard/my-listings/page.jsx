@@ -19,7 +19,7 @@ const MyListingsPage = () => {
 
              const loadRequests = async (petId) => {
                const res = await fetch(
-                 `http://localhost:8080/adoption-requests/${petId}`,
+                 `${process.env.CLIENT_SERVER_URL}/adoption-requests/${petId}`,
                );
 
                const data = await res.json();
@@ -30,7 +30,7 @@ const MyListingsPage = () => {
 
                 const loadPets = async () => {
                   const res = await fetch(
-                    `http://localhost:8080/my-pets/${user.email}`,
+                    `${process.env.CLIENT_SERVER_URL}/my-pets/${user.email}`,
                   );
                   const data = await res.json();
 
@@ -43,7 +43,7 @@ const MyListingsPage = () => {
              const handleApprove = async (id) => {
                try {
                  const res = await fetch(
-                   `http://localhost:8080/adoption-request/approve/${id}`,
+                   `${process.env.CLIENT_SERVER_URL}/adoption-request/approve/${id}`,
                    {
                      method: "PATCH",
                    },
@@ -71,7 +71,7 @@ const MyListingsPage = () => {
              const handleReject = async (requestId, petId) => {
                try {
                  const res = await fetch(
-                   `http://localhost:8080/adoption-request/reject/${requestId}`,
+                   `${process.env.CLIENT_SERVER_URL}/adoption-request/reject/${requestId}`,
                    {
                      method: "PATCH",
                    },
@@ -94,9 +94,12 @@ const MyListingsPage = () => {
              };
              const handleDelete = async (id) => {
                try {
-                 const res = await fetch(`http://localhost:8080/pet/${id}`, {
-                   method: "DELETE",
-                 });
+                 const res = await fetch(
+                   `${process.env.CLIENT_SERVER_URL}/pet/${id}`,
+                   {
+                     method: "DELETE",
+                   },
+                 );
 
                  const data = await res.json();
 

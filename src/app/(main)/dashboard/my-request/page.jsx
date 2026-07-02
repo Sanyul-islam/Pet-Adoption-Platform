@@ -20,7 +20,7 @@ export default function MyRequests() {
     const loadRequests = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8080/my-requests/${user.email}`,
+          `${process.env.CLIENT_SERVER_URL}/my-requests/${user.email}`,
         );
 
         const data = await res.json();
@@ -44,9 +44,12 @@ export default function MyRequests() {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:8080/adoption-requests/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${process.env.CLIENT_SERVER_URL}/adoption-requests/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
 
       const data = await res.json();
 
