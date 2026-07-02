@@ -1,10 +1,15 @@
 import { fetchPetDetails } from "@/data/data";
 import PetDetails from "@/component/PetDetails";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const DetailsPage = async ({ params }) => {
   const { id } = await params;
+  const {token} = await auth.api.getToken({
+    headers: await headers(),
+  })
 
-  const pet = await fetchPetDetails(id);
+  const pet = await fetchPetDetails(id,token);
 
   if (!pet) {
     return (

@@ -5,11 +5,15 @@ import { Card, Button, Chip, Avatar } from "@heroui/react";
 import {fetchPets} from "@/data/data";
 import PetFilters from "@/component/PetFilters";
 
+
 const AllPets = async ({ searchParams }) => {
     const params = await searchParams;
 
     const search = params?.search || "";
     const species = params?.species || "";
+    // const {token} = await auth.api.getToken({
+    //     headers: await headers(),
+    //   })
 
   const pets = await fetchPets(search, species);
   return (

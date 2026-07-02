@@ -1,16 +1,5 @@
-import UpdatePetForm from "@/component/UpdatePetForm";
-import { fetchPetDetails } from "@/data/data";
+import { redirect } from "next/navigation";
 
-const UpdatePetPage = async ({ params }) => {
-  const { id } = await params;
-
-  const pet = await fetchPetDetails(id);
-
-  return (
-    <div className="container mx-auto w-11/12 py-10">
-      <UpdatePetForm pet={pet} />
-    </div>
-  );
-};
-
-export default UpdatePetPage;
+export default function DashboardPage() {
+  redirect("/dashboard/my-listings");
+}

@@ -1,3 +1,4 @@
+import { cache } from "react";
 
 export const fetchPets = async (search = "", species = "") => {
   const params = new URLSearchParams();
@@ -12,9 +13,15 @@ export const fetchPets = async (search = "", species = "") => {
   return await res.json();
 };
 
-export const fetchPetDetails = async (id) => {
+export const fetchPetDetails = async (id,token) => {
+  
             
-          const res = await fetch(`http://localhost:8080/pet/${id}`);
+          const res = await fetch(`http://localhost:8080/pet/${id}`,{
+            headers:{
+              authorization : `Bearer ${token}` || ""
+            }
+          });
+          console.log(res.status);
           const data = await res.json();
           return data || {};
 }
