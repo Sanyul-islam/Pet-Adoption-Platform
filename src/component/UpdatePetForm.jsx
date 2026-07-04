@@ -36,7 +36,7 @@ const UpdatePetForm = ({ pet }) => {
 
     try {
       const res = await fetch(
-        `${process.env.CLIENT_SERVER_URL}/pet/${pet._id}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/pet/${pet._id}`,
         {
           method: "PUT",
           headers: {

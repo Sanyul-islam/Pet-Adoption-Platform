@@ -20,7 +20,7 @@ export default function MyRequests() {
     const loadRequests = async () => {
       try {
         const res = await fetch(
-          `${process.env.CLIENT_SERVER_URL}/my-requests/${user.email}`,
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/my-requests/${user.email}`,
         );
 
         const data = await res.json();
@@ -45,7 +45,7 @@ export default function MyRequests() {
 
     try {
       const res = await fetch(
-        `${process.env.CLIENT_SERVER_URL}/adoption-requests/${id}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/adoption-requests/${id}`,
         {
           method: "DELETE",
         },

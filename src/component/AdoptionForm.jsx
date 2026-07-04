@@ -27,7 +27,7 @@ const AdoptionForm = ({pet}) => {
    };
 
    const res = await fetch(
-     `${process.env.CLIENT_SERVER_URL}/adoption-requests`,
+     `${process.env.NEXT_PUBLIC_SERVER_URL}/adoption-requests`,
      {
        method: "POST",
        headers: {

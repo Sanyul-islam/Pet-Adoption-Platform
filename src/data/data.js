@@ -7,7 +7,7 @@ export const fetchPets = async (search = "", species = "") => {
   if (species) params.append("species", species);
 
   const res = await fetch(
-    `${process.env.CLIENT_SERVER_URL}/pet?${params.toString()}`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/pet?${params.toString()}`,
     {
       cache: "no-store",
     },
@@ -20,7 +20,7 @@ export const fetchPetDetails = async (id,token) => {
   
             
           const res = await fetch(
-            `${process.env.CLIENT_SERVER_URL}/pet/${id}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/pet/${id}`,
             {
               headers: {
                 authorization: `Bearer ${token}` || "",
