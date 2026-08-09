@@ -8,9 +8,7 @@ Pet Home is a modern pet adoption platform that connects pet owners, shelters, a
 
 ## 🌐 Live URL
 
-https://your-frontend.vercel.app
-
-> Replace with your deployed frontend URL.
+https://pet-home-xi.vercel.app
 
 ---
 

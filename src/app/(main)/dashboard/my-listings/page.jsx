@@ -16,10 +16,14 @@ const MyListingsPage = () => {
             const [pets, setPets] = useState([]);
             const [requests, setRequests] = useState([]);
            
-
+              
              const loadRequests = async (petId) => {
                const res = await fetch(
-                 `${process.env.NEXT_PUBLIC_SERVER_URL}/adoption-requests/${petId}`,
+                 `${process.env.NEXT_PUBLIC_SERVER_URL}/adoption-requests/${petId}`,{
+                  headers: {
+                    authorization: `Bearer `
+                  }
+                 }
                );
 
                const data = await res.json();

@@ -1,3 +1,5 @@
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import { cache } from "react";
 
 export const fetchPets = async (search = "", species = "") => {
@@ -30,4 +32,11 @@ export const fetchPetDetails = async (id,token) => {
           console.log(res.status);
           const data = await res.json();
           return data || {};
+}
+
+export default async function getToken() {
+  const {token}= await auth.api.getToken({
+    headers: await headers(),
+  });
+  return token;
 }
